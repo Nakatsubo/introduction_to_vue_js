@@ -43,3 +43,23 @@ vm.$watch(function() {
 vm.items[0].quantity = 1
 // -> 1
 ```
+
+### filter
+汎用的なテキストフォーマット処理を適用する仕組み
+
+```html
+ <p>フィルター処理例 {{1000 | numberWithDelimiter}}</p>
+ .....
+```
+
+```javascript
+.....
+filters: {
+  numberWithDelimiter: function (value) {
+    if (!value) { return '0' }
+    // 3ケタの数字をカンマ区切りにする
+    return value.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+  }
+}
+.....
+```
