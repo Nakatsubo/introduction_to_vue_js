@@ -45,7 +45,7 @@ vm.items[0].quantity = 1
 ```
 
 ### filter
-汎用的なテキストフォーマット処理を適用する仕組み
+汎用的なテキストフォーマット処理を適用する仕組み。
 
 ```html
  <p>フィルター処理例 {{1000 | numberWithDelimiter}}</p>
