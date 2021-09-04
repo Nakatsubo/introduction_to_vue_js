@@ -7,8 +7,21 @@
 </head>
 <body>
   <div id="app">
+    <ul>
+      <li v-for="item in items" v-bind:key="item.name">
+        <!-- v-onでイベントが発生した時に属性値で指定した式を評価する -->
+        <!-- {{ item.name }}の個数: <input type="number" v-on:input="item.quantity = $event.target.value" v-bind:value="item.quantity" min="0"> -->
+        <!-- {{ item.name }}の個数: <input type="number" v-on:change="item.quantity = $event.target.value" v-bind:value="item.quantity" min="0"> -->
+        {{ item.name }}の個数: <input type="number" v-model.lazy="item.quantity" min="0">
+      </li>
+    </ul>
+    <hr>
     <div :style="errorMessageStyle">
-      <p>{{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }}</p>
+      <ul>
+        <li v-for="item in items" v-bind:key="item.name">
+          {{ item.name }}: {{ item.price }} x {{ item.quantity }}
+        </li>
+      </ul>
       <p>小計: {{ totalPrice | numberWithDelimiter }}円</p>
       <p>合計（税込）: {{ totalPriceWithTax | numberWithDelimiter }}円</p>
       <!-- 属性値に応じて、表示を出し分けする -->

@@ -63,3 +63,17 @@ filters: {
 }
 .....
 ```
+
+### $event
+Vue.jsが提供しているDOMイベントのオブジェクトを参照する。
+
+```html
+<li v-for="item in items" v-bind:key="item.name">
+  {{ item.name }}の個数: <input type="number" v-on:change="item.quantity = $event.target.valuv-bind:value="item.quantity" min="0">
+</li>
+
+<!-- v-modelを使った記述で省略 -->
+<li v-for="item in items" v-bind:key="item.name">
+  {{ item.name }}の個数: <input type="number" v-model.lazy="item.quantity" min="0">
+</li>
+```
