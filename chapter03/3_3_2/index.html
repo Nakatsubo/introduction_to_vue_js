@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+  <div id="fruits-counter">
+    <div v-for="fruit in fruits">
+      {{ fruit.name }}: <counter-button v-on:increment="incrementCartStatus"></counter-button>
+    </div>
+    <p>合計: {{ total }}</p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    // 子コンポーネント
+    let counterButton = Vue.extend({
+      template: '<span>{{ counter }}個<button v-on:click="addToCart">追加</button></span>',
+      data: function() {
+        return { counter: 0 }
+      },
+      // 子コンポーネントのメソッド
+      methods: {
+        addToCart: function() {
+          this.counter += 1
+          this.$emit('increment') // incrementカスタムイベント（=incrementCartStatus）の発火
+        }
+      }
+    })
+    new Vue({
+      el: '#fruits-counter',
+      // 子コンポーネントを指定
+      components: {
+        'counter-button': counterButton
+      },
+      data: {
+        total: 0,
+        fruits: [
+          { name: '梨' },
+          { name: 'いちご' }
+        ]
+      },
+      methods: {
+        // 合計数を計算する
+        incrementCartStatus: function() {
+          this.total += 1
+        }
+      }
+    })
+  </script>
+</body>
+</html>

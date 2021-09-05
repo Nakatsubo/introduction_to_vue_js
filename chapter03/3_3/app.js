@@ -29,7 +29,8 @@ new Vue({
   el: '#fruits-component',
   data: {
     fruitsItems: [
-      {name: '梨'}, {name: 'いちご'}
+      { name: '梨' },
+      { name: 'いちご' }
     ]
   }
 })
