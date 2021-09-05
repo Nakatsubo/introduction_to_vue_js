@@ -77,3 +77,20 @@ Vue.jsが提供しているDOMイベントのオブジェクトを参照する�
   {{ item.name }}の個数: <input type="number" v-model.lazy="item.quantity" min="0">
 </li>
 ```
+
+### props
+親コンポーネントから子コンポーネントへデータを渡す。親からテンプレートの属性（v-bind）経由で渡す。
+
+```javascript
+Vue.component(コンポーネント名,{
+  props: {
+    親から受け取る属性名: {
+      type: データ型（String, Object, ...）,
+      default: デフォルト値,
+      required: 真偽値（必須かどうか）,
+      validator: バリデーション用の関数
+    }
+  }
+  // ...template内で「親から受け取る属性」が使える
+})
+```
