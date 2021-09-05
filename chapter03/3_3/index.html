@@ -10,6 +10,11 @@
     <!-- テンプレートの属性名はkebab-caseで指定 -->
     <item-desc v-bind:item-name="myItem"></item-desc>
   </div>
+  <div id="fruits-component">
+    <ol>
+      <fruits-item-name v-for="fruit in fruitsItems" :key="fruit.name" v-bind:fruits-item="fruit"></fruits-item-name>
+    </ol>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script src="./app.js"></script>
 </body>

@@ -94,3 +94,58 @@ Vue.component(コンポーネント名,{
   // ...template内で「親から受け取る属性」が使える
 })
 ```
+
+#### Sample Data
+
+```html
+<!-- sample1 -->
+<div id="app">
+  <!-- テンプレートの属性名はkebab-caseで指定 -->
+  <item-desc v-bind:item-name="myItem"></item-desc>
+</div>
+
+<!-- sample2 -->
+<div id="fruits-component">
+  <ol>
+    <fruits-item-name v-for="fruit in fruitsItems" :key="fruit.name" v-bind:fruits-item="fruit"><fruits-item-name>
+  </ol>
+</div>
+```
+
+```javascript
+// sample1
+// 子コンポーネント
+Vue.component('item-desc',{
+  props: {
+    // 親から受け取る属性名 -> lowerCamleCaseで指定
+    itemName: {
+      type: String
+    }
+  },
+  template: '<p>{{ itemName }}は便利です</p>'
+})
+new Vue({
+  el: '#app',
+  data: { myItem: 'pen' }
+})
+
+// sample2
+// 子コンポーネント
+Vue.component('fruits-item-name',{
+  props: {
+    fruitsItem: {
+      type: Object,
+      required: true
+    }
+  },
+  template: '<li>{{ fruitsItem.name }}</li>'
+})
+new Vue({
+  el: '#fruits-component',
+  data: {
+    fruitsItems: [
+      {name: '梨'}, {name: 'いちご'}
+    ]
+  }
+})
+```

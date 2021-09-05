@@ -11,7 +11,25 @@ Vue.component('item-desc',{
   },
   template: '<p>{{ itemName }}は便利です</p>'
 })
-const app = new Vue({
+new Vue({
   el: '#app',
   data: { myItem: 'pen' }
+})
+
+Vue.component('fruits-item-name',{
+  props: {
+    fruitsItem: {
+      type: Object,
+      required: true
+    }
+  },
+  template: '<li>{{ fruitsItem.name }}</li>'
+})
+new Vue({
+  el: '#fruits-component',
+  data: {
+    fruitsItems: [
+      {name: '梨'}, {name: 'いちご'}
+    ]
+  }
 })
