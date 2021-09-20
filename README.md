@@ -203,6 +203,13 @@ SPA構築のためのルーティングライブラリ。
 
 ```html
 .....
+<div id="app">
+  <router-link to="/top">トップページ</router-link>
+  <router-link to="/users">ユーザー一覧ページ</router-link>
+  <router-view></router-view>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script>
   const RUTER = new VueRouter({
     routes: [
