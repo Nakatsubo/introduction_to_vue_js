@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue.js SPAのサンプルアプリケーション</title>
+  <!-- <link rel="stylesheet" href="./style.css"> -->
+</head>
+<body>
+  <div id="app">
+    <nav>
+      <router-link to="/top">トップページ</router-link>
+      <router-link to="/users">ユーザー一覧ページ</router-link>
+    </nav>
+    <router-view></router-view>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+  <!-- リストページを定義 -->
+  <script type="text/x-template" id="user-list">
+    <!-- ユーザー一覧を$watchで監視する -->
+    <div>
+      <div class="loading" v-if="loading">読み込み中...</div>
+      <div class="error" v-if="error">{{ error }}</div>
+      <div v-for="user in users" :key="user.id">
+        <h2>{{ user.name }}</h2>
+      </div>
+    </div>
+  </script>
+
+  <script>
+    let userData =  [
+      {
+        id: 1,
+        name: 'hogehoge'
+      },
+      {
+        id: 2,
+        name: 'fugafuga'
+      }
+    ]
+
+    // JSONを返す -> 擬似的にWebAPIを叩いているよう設定
+    const getUsers = function(callback) {
+      setTimeout(function () {
+        callback(null, userData)
+      }, 1000)
+    }
+
+    // リストページを定義
+    const UserList = {
+      template: '#user-list',
+      // dataの初期値
+      data: function() {
+        return {
+          loading: false,
+          //　初期値は空にしておく
+          users: function() {
+            return []
+          },
+          error: null
+        }
+      },
+      // ページを初期化する際にJSONを取得する
+      created: function() {
+        this.fetchData()
+      },
+      // $routeの値をwatchし変更を監視する
+      watch: {
+        '$route': 'fetchData'
+      },
+      methods: {
+        fetchData: function() {
+          this.loading = true
+          getUsers(function(error, users) {
+            this.loading = false
+            if(error) {
+              this.error = error.toString() 
+            } else {
+              this.users = users
+            }
+          }.bind(this))
+        }
+      }
+    }
+
+    const Router = new VueRouter({
+      routes: [
+        {
+          path: '/top',
+          component: {
+            template: '<div>トップページです。</div>'
+          }
+        },
+        {
+          path: '/users',
+          component: UserList
+        }
+      ]
+    })
+    // ルーターのインスタンスをrootとなるVueインスタンスに渡す
+    const App = new Vue({
+      router: Router
+    }).$mount('#app')
+  </script>
+
+</body>
+</html>
