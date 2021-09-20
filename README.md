@@ -80,7 +80,7 @@ Vue.jsが提供しているDOMイベントのオブジェクトを参照する�
 
 ### props
 親コンポーネントから子コンポーネントへデータを渡す。親からテンプレートの属性（v-bind）経由で渡す。
-逆の場合（子から親に通信する）、イベントを使用する。（$emitなど）
+逆の場合（子から親に通信する）、イベントを使用する。（v-on + $emitなど）
 
 ```javascript
 Vue.component(コンポーネント名,{
@@ -149,4 +149,51 @@ new Vue({
     ]
   }
 })
+```
+
+### slot(スロットコンテンツ)
+親コンポーネントごとに子コンポーネントの内容を書き換える仕組み。
+
+```html
+.....
+<div id="fruits-list">
+  <page-header class="header">
+    <h1 slot="header">
+      冬の果物
+    </h1>
+  </page-header>
+  <page-content class="content">
+    <ul slot="content">
+    <li>りんご</li>
+    <li>イチゴ</li>
+    </ul>
+  </page-content>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script>
+var headerTemplate = `
+  <div>
+    <slot name="header">No title</slot>
+  </div>
+`
+
+var contentTemplate = `
+  <div>
+    <slot name="content">No contents</slot>
+  </div>
+`
+
+Vue.component('page-header', {
+  template: headerTemplate
+})
+Vue.component('page-content', {
+  template: contentTemplate
+})
+
+new Vue({
+  el: "#fruits-list"
+})
+</script>
+.....
 ```

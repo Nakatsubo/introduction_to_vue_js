@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="fruits-list">
+    <page-header class="header">
+      <h1 slot="header">
+        冬の果物
+      </h1>
+    </page-header>
+    <page-content class="content">
+      <ul slot="content">
+        <li>りんご</li>
+        <li>イチゴ</li>
+      </ul>
+    </page-content>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+  var headerTemplate = `
+    <div>
+      <slot name="header">No title</slot>
+    </div>
+  `
+  
+  var contentTemplate = `
+    <div>
+      <slot name="content">No contents</slot>
+    </div>
+  `
+  
+  Vue.component('page-header', {
+    template: headerTemplate
+  })
+  Vue.component('page-content', {
+    template: contentTemplate
+  })
+  
+  new Vue({
+    el: "#fruits-list"
+  })
+  </script>
+  
+</body>
+</html>
