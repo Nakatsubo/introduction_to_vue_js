@@ -197,3 +197,33 @@ new Vue({
 </script>
 .....
 ```
+
+### vue-router
+SPA構築のためのルーティングライブラリ。
+
+```html
+.....
+<script>
+  const RUTER = new VueRouter({
+    routes: [
+      {
+        path: '/top',
+        component: {
+          template: '<div>トップページです。</div>'
+        }
+      },
+      {
+        path: '/users',
+        component: {
+          template: '<div>ユーザー一覧ページです。</div>'
+        }
+      }
+    ]
+  })
+  // ルーターのインスタンスをrootとなるVueインスタンスに渡す
+  const app = new Vue({
+    router: RUTER
+  }).$mount('#app')
+</script>
+.....
+```
